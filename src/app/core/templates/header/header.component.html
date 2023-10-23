@@ -1,0 +1,29 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-menu-button (click)="menuService.openMenu('main-menu')"></ion-menu-button>
+    </ion-buttons>
+    <ion-grid class="ion-no-margin ion-no-padding">
+      <ion-row>
+        <ion-col class="ion-align-self-center app-name flex-box">
+          <ion-img class="logo" src="/assets/icon/favicon.png" alt="dr wizard ui logo"></ion-img>
+          <ion-title class="ion-no-padding">DR Wizard UI</ion-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-buttons slot="end">
+      <ion-menu-button (click)="menuService.openMenu('user-menu')">
+        <ion-icon name="settings"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="light">
+    <div class="ion-padding-bottom">
+      <app-searchbar></app-searchbar>
+      <app-filter></app-filter>
+      <app-tag-filter></app-tag-filter>
+    </div>
+    <ion-progress-bar *ngIf="loadContentService.isLoading" type="indeterminate"></ion-progress-bar>
+  </ion-toolbar>
+</ion-header>
+

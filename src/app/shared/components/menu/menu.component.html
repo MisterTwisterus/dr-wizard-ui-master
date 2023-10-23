@@ -1,0 +1,96 @@
+<ion-menu contentId="main-content" menuId="main-menu" side="start">
+  <ion-header>
+    <ion-toolbar color="light">
+      <ion-title>DR Wizard UI Menu</ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button (click)="menuService.closeMenu()">
+          <ion-icon name="close"></ion-icon>
+        </ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list class="ion-no-padding">
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label>Main</ion-label>
+        </ion-item-divider>
+        <ion-item [routerLink]="['worlds']" class="hover-item">
+          <ion-icon color="primary" name="earth" slot="start"></ion-icon>
+          <ion-label color="primary">Worlds</ion-label>
+        </ion-item>
+        <ion-item [routerLink]="['stories']" class="hover-item">
+          <ion-icon color="tertiary" name="planet" slot="start"></ion-icon>
+          <ion-label color="tertiary">Stories</ion-label>
+        </ion-item>
+      </ion-item-group>
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label>Custom</ion-label>
+        </ion-item-divider>
+        <ion-item [routerLink]="['tags']" class="hover-item">
+          <ion-icon color="success" name="pricetags" slot="start"></ion-icon>
+          <ion-label color="success">Tags</ion-label>
+        </ion-item>
+        <ion-item [routerLink]="['characters']" class="hover-item">
+          <ion-icon color="secondary" name="people" slot="start"></ion-icon>
+          <ion-label color="secondary">Characters</ion-label>
+        </ion-item>
+        <ion-item [routerLink]="['world-events']" class="hover-item">
+          <ion-icon color="warning" name="library" slot="start"></ion-icon>
+          <ion-label color="warning">World Events</ion-label>
+        </ion-item>
+        <ion-item [routerLink]="['author-notes']" class="hover-item">
+          <ion-icon color="danger" name="document-text" slot="start"></ion-icon>
+          <ion-label color="danger">Author's Notes</ion-label>
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-menu contentId="main-content" menuId="user-menu" side="end">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Settings</ion-title>
+      <ion-buttons slot="end">
+        <ion-menu-button (click)="this.menuService.closeMenu()">
+          <ion-icon name="close"></ion-icon>
+        </ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-item-divider>
+      <ion-label>API Key</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-input [(ngModel)]="token"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-buttons>
+        <ion-button (click)="saveToken()">
+          Save
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>Theme</ion-label>
+    </ion-item-divider>
+    <ion-list>
+      <ion-item-group>
+        <ion-item>
+          <ion-buttons>
+            <ion-button (click)="changeDarkMode(false)"
+                        [color]="this.modeTogglerService.darkMode?'danger':'success'">
+              <ion-icon name="sunny"></ion-icon>
+            </ion-button>
+            <ion-button (click)="changeDarkMode(true)"
+                        [color]="this.modeTogglerService.darkMode?'success':'danger'">
+              <ion-icon name="moon"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+  </ion-content>
+</ion-menu>

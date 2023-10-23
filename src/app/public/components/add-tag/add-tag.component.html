@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Tags</ion-title>
+    <ion-button (click)="this.modalService.closeModal()" class="ion-margin" color="light" shape="circle" slot="end">
+      <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<div class="inner-content">
+  <ionic-selectable
+    style="display: none"
+    #select_tags
+    [itemValueField]="'name'"
+    [itemTextField]="'name'"
+    [items]="tags"
+    [canSearch]="true"
+    [isMultiple]="true"
+    [(ngModel)]="selectedTags"
+  >
+  </ionic-selectable>
+  <ion-button color="secondary" (click)="select_tags._click()" class="ion-padding" expand="block">Select Tags
+  </ion-button>
+  <div class="ion-padding-horizontal">
+    <ion-chip [style.color]="tag.color" [style.background]="tag.color + '32'" *ngFor="let tag of selectedTags">
+      <ion-label>{{tag.name}}</ion-label>
+    </ion-chip>
+  </div>
+  <ion-button (click)="save()" [disabled]="selectedTags.length === 0" class="ion-padding" expand="block">Save</ion-button>
+</div>

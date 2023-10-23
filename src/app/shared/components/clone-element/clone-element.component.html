@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Clone Entry</ion-title>
+    <ion-button (click)="this.modalService.closeModal()" class="ion-margin" color="light" shape="circle" slot="end">
+      <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<div class="inner-content">
+  <form (ngSubmit)="save()" [formGroup]="cloneForm">
+    <ion-item>
+      <ion-input
+        [clearInput]="true"
+        formControlName="name"
+        label="Name"
+        labelPlacement="floating"
+        [counter]="true"
+        type="text">
+      </ion-input>
+    </ion-item>
+    <ion-button [disabled]="cloneForm.invalid" class="ion-padding-horizontal" expand="block" type="submit">Create
+    </ion-button>
+  </form>
+</div>

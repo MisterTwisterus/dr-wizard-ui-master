@@ -1,0 +1,20 @@
+<div class="ion-padding-horizontal flex-align-item-center" *ngIf="filterService.isNotTagsPage()">
+  <ionic-selectable
+    style="display: none"
+    #select_tags
+    [itemValueField]="'name'"
+    [itemTextField]="'name'"
+    [items]="tags"
+    [canSearch]="true"
+    [isMultiple]="true"
+    [(ngModel)]="selectedTags"
+    (onChange)="tagChange()"
+  >
+  </ionic-selectable>
+  <ion-button (click)="select_tags._click()" class="upload-button">
+    Select Tags
+  </ion-button>
+    <ion-chip [style.color]="tag.color" [style.background]="tag.color + '32'" *ngFor="let tag of selectedTags">
+      <ion-label>{{tag.name}}</ion-label>
+    </ion-chip>
+</div>

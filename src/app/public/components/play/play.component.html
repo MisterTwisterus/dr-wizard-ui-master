@@ -1,0 +1,184 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{story.name}}</ion-title>
+    <ion-button (click)="this.modalService.closeModal()" class="ion-margin" color="light" shape="circle" slot="end">
+      <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content #content>
+  <div *ngIf="hideElementsService.isMobile()">
+    <br>
+    <br>
+  </div>
+  <div class="chat-options">
+    <ion-segment *ngIf="hideElementsService.isMobile()" [value]="playType">
+      <ion-segment-button value="play" (click)="setPlay()">Chat</ion-segment-button>
+      <ion-segment-button value="settings" (click)="playType = 'settings'">Settings</ion-segment-button>
+    </ion-segment>
+  </div>
+  <ion-grid class="ion-padding play-grid">
+    <ion-row>
+      <ion-col *ngIf="!hideElementsService.isMobile() || (hideElementsService.isMobile() && playType === 'play')">
+        <div>
+          <div contenteditable="false" style="opacity: 0.7;" [innerHTML]="notEditableText"></div>
+          <div #editable contenteditable="true" [innerHTML]="editableText"></div>
+        </div>
+        <div class="ion-padding-vertical">
+          <ion-textarea [disabled]="isGenerating === true" color="tertiary" [(ngModel)]="action"
+                        class="ion-padding-vertica action-input"></ion-textarea>
+          <div style="display: flex">
+            <ion-button style="width: 85%;" [disabled]="isGenerating === true" color="tertiary" (click)="send()"
+                        expand="block">Send
+            </ion-button>
+            <ion-button [disabled]="lastGeneratedText.length === 0 || isGenerating === true"
+                        style="width: 15%;" color="tertiary" (click)="regenerate()">
+              <ion-icon name="reload"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="!hideElementsService.isMobile()">
+      </ion-col>
+    </ion-row>
+    <div class="settings"
+         *ngIf="!hideElementsService.isMobile() || (hideElementsService.isMobile() && playType === 'settings')">
+      <ion-segment [value]="settingsType">
+        <ion-segment-button (click)="settingsType = 'author'" value="author">Author</ion-segment-button>
+        <ion-segment-button (click)="settingsType = 'memory'" value="memory">Memory</ion-segment-button>
+        <ion-segment-button (click)="settingsType = 'guidelines'" value="guidelines">Guide</ion-segment-button>
+        <ion-segment-button (click)="settingsType = 'generation'" value="generation">Generation</ion-segment-button>
+      </ion-segment>
+      <form (ngSubmit)="save()" [formGroup]="playForm">
+        <ng-container [ngSwitch]="settingsType">
+          <ng-container *ngSwitchCase="'author'">
+            <ion-item>
+              <ion-textarea
+                autosize
+                auto-grow="false"
+                formControlName="note"
+                label="Author's Note"
+                labelPlacement="floating"
+                placeholder="Type author notes"
+                rows="24">
+              </ion-textarea>
+            </ion-item>
+            <ionic-selectable
+              item-content
+              style="display: none"
+              #add_author_notes
+              [itemValueField]="'name'"
+              [itemTextField]="'name'"
+              [items]="authorNotes"
+              [canSearch]="true"
+              [isMultiple]="true"
+              formControlName="selectedAuthorNotes"
+              (onChange)="addSelectedText('note')"
+            ></ionic-selectable>
+            <ion-button color="secondary" (click)="add_author_notes._click()" class="ion-padding" expand="block"
+                        style="padding-bottom: 0">Add
+              Author Note
+            </ion-button>
+          </ng-container>
+          <ng-container *ngSwitchCase="'memory'">
+            <ion-item>
+              <ion-textarea
+                autosize
+                auto-grow="false"
+                formControlName="memory"
+                label="Automatic Memory"
+                labelPlacement="floating"
+                placeholder="Type automatic memory info"
+                rows="12">
+              </ion-textarea>
+            </ion-item>
+            <ionic-selectable
+              item-content
+              style="display: none;"
+              #select_characters
+              [itemValueField]="'name'"
+              [itemTextField]="'name'"
+              [items]="characters"
+              [canSearch]="true"
+              [isMultiple]="true"
+              autoGrow="true"
+              formControlName="selectedCharacters"
+              (onChange)="addSelectedText('characters')"
+            ></ionic-selectable>
+            <ion-button color="secondary" (click)="select_characters._click()" class="ion-padding-horizontal"
+                        expand="block" style="padding-bottom: 0">Select Characters
+            </ion-button>
+            <ionic-selectable
+              style="display: none"
+              item-content
+              #select_world_events
+              [itemValueField]="'name'"
+              [itemTextField]="'name'"
+              [items]="worldEvents"
+              [canSearch]="true"
+              [isMultiple]="true"
+              formControlName="selectedWorldEvents"
+              (onChange)="addSelectedText('event')"
+            ></ionic-selectable>
+            <ion-button color="secondary" (click)="select_world_events._click()" class="ion-padding-horizontal"
+                        expand="block">Select
+              World Events
+            </ion-button>
+          </ng-container>
+          <ng-container *ngSwitchCase="'guidelines'">
+            <ion-item>
+              <ion-checkbox formControlName="nsfw">NSFW</ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-checkbox formControlName="isAdventure">Adventure Mode</ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-checkbox formControlName="hasAutomaticMemory">Automatic Memory</ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-checkbox formControlName="hasAutomaticGuidelines">Automatic Guidelines</ion-checkbox>
+            </ion-item>
+          </ng-container>
+          <ng-container *ngSwitchCase="'generation'">
+            <ion-item>
+              <ion-select interface="popover" placeholder="Select Model" formControlName="name">
+                <ion-select-option value="ChatGPT 1.0">ChatGPT 1.0</ion-select-option>
+                <ion-select-option value="ChatGPT 1.0 (Completion)">ChatGPT 1.0 (Completion)</ion-select-option>
+                <ion-select-option value="ChatGPT 2.0">ChatGPT 2.0</ion-select-option>
+                <ion-select-option value="ChatGPT 2.0 (Completion)">ChatGPT 2.0 (Completion)</ion-select-option>
+                <ion-select-option value="Freya 3.0">Freya 3.0</ion-select-option>
+                <ion-select-option value="Magni 1.0">Magni 1.0</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-input
+                [clearInput]="true"
+                max="10"
+                min="1"
+                label="Max Output Length"
+                labelPlacement="floating"
+                formControlName="maxOutputLength"
+                type="number">
+              </ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input
+                [clearInput]="true"
+                max="10"
+                min="1"
+                label="Number Of Generations"
+                labelPlacement="floating"
+                formControlName="numberOfGenerations"
+                type="number">
+              </ion-input>
+            </ion-item>
+          </ng-container>
+        </ng-container>
+        <ion-button [disabled]="playForm.invalid || isGenerating === true"
+                    class="ion-margin-horizontal ion-padding-vertical" type="submit"
+                    expand="block">Save
+        </ion-button>
+      </form>
+    </div>
+  </ion-grid>
+</ion-content>

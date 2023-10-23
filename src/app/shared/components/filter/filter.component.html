@@ -1,0 +1,17 @@
+<div class="ion-margin-horizontal">
+  <ion-chip (click)="selectFilter('name')" color="success">
+    <ion-icon name="code"></ion-icon>
+    <ion-label>Name</ion-label>
+    <ion-icon [name]="getFilterIcon('name')"></ion-icon>
+  </ion-chip>
+  <ion-chip (click)="selectFilter('date')" color="secondary">
+    <ion-icon name="calendar"></ion-icon>
+    <ion-label>Date</ion-label>
+    <ion-icon [name]="getFilterIcon('date')"></ion-icon>
+  </ion-chip>
+  <ion-chip (click)="selectFilter('selection')" color="tertiary">
+    <ion-icon name="checkbox"></ion-icon>
+    <ion-label></ion-label>
+    <ion-icon [name]="getFilterIcon('selection')"></ion-icon>
+  </ion-chip>
+</div>

@@ -1,0 +1,38 @@
+<ion-card [style.background]="content.color? getColor() + '32': ''">
+  <ion-card-content>
+    {{content.creationDate | date:"MMM dd, yyyy 'at' hh:mm"}}
+    <ion-checkbox [color]="color" (click)="select(content.id)" [(ngModel)]="content.selected"
+                  class="ion-float-end"></ion-checkbox>
+    <ion-label class="ion-float-end ion-padding-horizontal">ㅤ</ion-label>
+    <ion-input maxlength="50" (ionInput)="changeName()" *ngIf="checkIfStory(); else not_editable" color="dark" class="ion-no-padding card-input-title" [style.color]="getColor()" [(ngModel)]="content.name"></ion-input>
+    <ng-template #not_editable>
+      <ion-title [color]="color" [style.color]="getColor()" color="dark" class="ion-no-padding">{{content.name}}</ion-title>
+    </ng-template>
+    <div *ngIf="checkIfStory()" class="flex-align-item-center">
+      <ion-icon color="primary" name="earth" slot="start"></ion-icon>
+      <ion-label color="primary">{{getWorldName()}}</ion-label>
+    </div>
+    <div *ngIf="content.tags">
+      <div *ngIf="content.tags.length !== 0">
+        <ion-chip (click)="deleteTag(tag.id)" [style.color]="tag.color" [style.background]="tag.color + '32'" *ngFor="let tag of content.tags">
+          <ion-label>{{tag.name}}</ion-label>
+          <ion-icon [style.color]="tag.color" name="close-circle-outline"></ion-icon>
+        </ion-chip>
+      </div>
+    </div>
+    <ion-buttons class="ion-padding-top">
+      <ion-button *ngIf="checkIfStory()" (click)="play()" color="secondary">
+        <ion-icon slot="start" name="play"></ion-icon>
+        Play
+      </ion-button>
+      <ion-button *ngIf="isNotTag()" (click)="open()" color="primary">
+        <ion-icon slot="start" name="eye"></ion-icon>
+        Show
+      </ion-button>
+      <ion-button *ngIf="isNotTagOrWorld()" (click)="clone()" color="secondary">
+        <ion-icon slot="start" name="copy"></ion-icon>
+        Clone
+      </ion-button>
+    </ion-buttons>
+  </ion-card-content>
+</ion-card>

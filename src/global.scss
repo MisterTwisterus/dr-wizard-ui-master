@@ -1,0 +1,189 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+.absolute-center {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.flex-align-item-center {
+  display: flex;
+  align-items: center;
+}
+
+ion-item {
+  --ion-item-background: transparent;
+}
+
+ion-list {
+  --ion-item-background: transparent;
+}
+
+.margin-auto {
+  margin: auto;
+}
+
+.filler {
+  padding-top: 160px;
+}
+
+
+ion-tab-bar {
+  --border: none !important;
+}
+
+.play-modal {
+  align-items: center;
+  justify-content: center;
+
+  &::part(content) {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+ion-modal.auto-height {
+  &.bottom {
+    align-items: flex-end;
+  }
+
+  --height: auto;
+
+  .ion-page {
+    position: relative;
+    display: block;
+    contain: content;
+
+    .inner-content {
+      max-height: 80vh;
+      overflow: auto;
+      padding: 10px;
+    }
+  }
+}
+
+ion-button[shape=circle] {
+  --border-radius: 50%;
+  width: 56px;
+  height: 56px;
+}
+
+.card-input-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card-input-title[disabled] {
+  opacity: 10 !important;
+}
+
+ion-card {
+  height: 100%;
+  --height: 100%;
+}
+
+ion-card-content {
+  height: 100%;
+  --height: 100%;
+}
+
+.flex-box {
+  display: flex;
+}
+
+.action {
+  color: var(--ion-color-tertiary);
+  padding: 10px 0;
+}
+
+.action-input {
+  border: solid 3px var(--ion-color-tertiary);
+  border-radius: 5px;
+  color: var(--ion-color-tertiary);
+  padding: 5px;
+}
+
+ion-grid.play-grid {
+  height: 100%;
+
+  ion-row {
+    height: 33.33%;
+  }
+}
+
+.settings {
+  top: 88px;
+  right: 0;
+  display: block;
+  position: fixed;
+  order: -1;
+  width: 50%;
+  float: left;
+  z-index: 10;
+  padding-right: 15px;
+  overflow-y: scroll;
+}
+
+.chat-options {
+  background-color: var(--ion-color-light);
+  top: 88px;
+  right: 0;
+  display: block;
+  position: fixed;
+  order: -1;
+  width: 100%;
+  float: left;
+  z-index: 10;
+  padding-right: 15px;
+  overflow-y: scroll;
+}
+
+@media only screen and (max-width: 1290px) {
+  .settings {
+    top: 136px;
+    width: 100%;
+  }
+}
+
+.setting-form {
+  max-height: 100%;
+}
+
+.text-input {
+  height: auto;
+  div.input-wrapper {
+    background-color: #fff;
+    border-radius: 20px;
+    textarea.text-input {
+      margin-left: 8px;
+    }
+  }
+}

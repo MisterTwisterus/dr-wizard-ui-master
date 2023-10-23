@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Story</ion-title>
+    <ion-button (click)="this.modalService.closeModal()" class="ion-margin" color="light" shape="circle" slot="end">
+      <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<div class="inner-content">
+  <form (ngSubmit)="save()" [formGroup]="storyForm">
+    <ion-item>
+      <ion-input
+        [clearInput]="true"
+        formControlName="name"
+        label="Name*"
+        labelPlacement="floating"
+        maxlength="50"
+        minlength="1"
+        [counter]="true"
+        type="text">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        World*
+      </ion-label>
+      <ionic-selectable
+        item-content
+        formControlName="world"
+        [itemValueField]="'id'"
+        [itemTextField]="'name'"
+        [items]="worlds"
+        [canSearch]="true"
+      >
+      </ionic-selectable>
+    </ion-item>
+    <ion-item>
+      <ion-textarea
+        auto-grow="true"
+        formControlName="text"
+        label="Text"
+        labelPlacement="floating"
+        placeholder="Type the content"
+        rows="12">
+      </ion-textarea>
+    </ion-item>
+    <ion-button (click)="upload.click()" class="upload-button" expand="block" fill="full">
+      Import File
+    </ion-button>
+    <ion-note class="ion-padding-horizontal" color="warning" slot="helper">*Only .txt files supported</ion-note>
+    <input #upload (change)="handleFileInput($event)" accept=".txt" style="display: none" type="file"/>
+    <ion-button [disabled]="storyForm.invalid" class="ion-padding-horizontal" expand="block" type="submit">Create
+    </ion-button>
+  </form>
+</div>

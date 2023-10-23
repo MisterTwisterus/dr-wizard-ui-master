@@ -1,0 +1,7 @@
+{
+  "name": "dr-wizard-ui",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

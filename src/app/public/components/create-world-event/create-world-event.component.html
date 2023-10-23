@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create World Event</ion-title>
+    <ion-button (click)="this.modalService.closeModal()" class="ion-margin" color="light" shape="circle" slot="end">
+      <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<div class="inner-content">
+  <form (ngSubmit)="save()" [formGroup]="worldEventsForm">
+    <ion-item>
+      <ion-input
+        [clearInput]="true"
+        formControlName="name"
+        maxlength="20"
+        minlength="1"
+        label="Name*"
+        labelPlacement="floating"
+        [counter]="true"
+        type="text">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea
+        auto-grow="true"
+        formControlName="description"
+        label="Description"
+        labelPlacement="floating"
+        placeholder="Type the content"
+        rows="12">
+      </ion-textarea>
+    </ion-item>
+    <ion-button (click)="upload.click()" class="upload-button" expand="block" fill="full">
+      Import File
+    </ion-button>
+    <ion-note class="ion-padding-horizontal" color="warning" slot="helper">*Only .txt files supported</ion-note>
+    <input #upload (change)="handleFileInput($event)" accept=".txt" style="display: none" type="file"/>
+    <ion-button [disabled]="worldEventsForm.invalid" class="ion-padding-horizontal" expand="block" type="submit">Create
+    </ion-button>
+  </form>
+</div>

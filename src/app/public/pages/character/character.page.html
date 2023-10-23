@@ -1,0 +1,23 @@
+<app-header></app-header>
+<ion-content [fullscreen]="true">
+  <ion-grid *ngIf="filterService.output.length !== 0; else no_content">
+    <ion-row>
+      <ion-col *ngFor="let world of filterService.output" offset="0" size-lg="6" size-md="6" size-sm="12" size-xl="3"
+               size-xs="12">
+        <app-card color="secondary" (reload)="loadCharacters()" (updateSelect)="this.filterService.select($event)" [content]="world" (updateTags)="filterService.addTag($event, world.id)"
+        ></app-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ng-template #no_content>
+    <h1 class="absolute-center">
+      No Characters found
+    </h1>
+  </ng-template>
+  <ion-fab horizontal="end" slot="fixed" vertical="bottom">
+    <ion-fab-button aria-label="add" (click)="create()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+
